@@ -1,0 +1,40 @@
+
+PROJECT 1:
+Project Overview and Problem statement:Identify various parameters, classify countries as developed, developing, or underdeveloped, and cluster them to discern intermediate traits. Provide valuable insights to the client based on the analysis. 
+Data collection and EDA:We have been provided with data for 208 countries, tracking their growth over time. Each country has 13 entries, representing data for either 13 years, 13 quarters, 13 half-yearly periods, or other periodic values.
+
+Upon closer examination, most of the data features exhibit right-skewed distributions, suggesting the presence of outliers. Specifically, variables like GDP, CO2 emissions, energy usage, inbound and outbound tourism show higher values, indicating more developed countries. Conversely, countries with values falling below the 25th quartile range may be considered as underdeveloped, while those falling between the 25th and 50th quartile ranges indicate developing countries with relatively lower growth rates. Lastly, countries falling within the 50th to 75th quartile ranges are considered developing with higher growth rates.
+						
+cleaning of data: 
+1.During the data examination, I came across numerous missing values.
+2.Certain columns had over 50% missing values, necessitating their removal.
+3.To address the missing data, I applied KNN imputer using the nan Euclidean distance metric to impute the values.
+4.After the imputation process, I compared the distribution patterns with the original data and found no significant changes.
+	 
+Model building:
+1.As clustering is a distance-based model, it requires data to be standardized or normalized, and I opted for standardization.
+2.After standardizing the data, I applied various clustering models like Agglomerative, K-means, and DBScan.
+3.However, I encountered a challenge with a low silhouette score, which stood at around 50%.
+4.Additionally, I faced the issue of the curse of dimensionality while dealing with high-dimensional data.
+Outliers capping and Model traing:
+Instead of capping outliers, I decided to split my data into two separate datasets:
+
+1.One dataset containing entries with GDP greater than or equal to Q3 + 1.5 * IQR.
+2.Another dataset containing entries with GDP less than Q3 + 1.5 * IQR.
+
+
+Factor Analysis:
+
+To address the issue of the curse of dimensionality, I opted for the factor analysis method.
+Upon applying the factor analysis to both datasets, I identified significant columns, such as GDP, CO2 emissions, Energy usage, and Tourism, based on their eigenvalues (> 0.75).
+
+Retraining of model:
+Using these selected features, I fitted the data to my model.
+The silhouette score obtained was around 83%, and the profiling results were satisfactory. Through profiling, I observed that all countries were classified into four distinct categories:
+a. Developed
+b. Developing (high growth rate)
+c. Developing (low growth rate)
+d. Underdeveloped
+
+after clustering and assigning cluster id i had used Logistic Regression to verify weather my cluster id is accurate or not and i found good presicion and f1 score.				  
+				
